@@ -1,52 +1,16 @@
 import Head from "next/head";
 import { ListProductComponent } from "../components/product/list";
 import { products } from "../data/products";
-import { useState } from "react";
 import { CartProductComponent } from "../components/product/cart";
+import { useCart } from "../hooks/cart";
 
 export default function Home() {
-  const [cartItems, setCartItems] = useState([]);
-  const handleAddToCartClick = (product) => {
-    const existingItemFromCart = cartItems.find(
-      (item) => item.name === product.name
-    );
-    let newCartItems = [];
-
-    if (existingItemFromCart) {
-      newCartItems = cartItems.map((item) => {
-        if (item.name === product.name) item.count += 1;
-
-        return item;
-      });
-    } else {
-      newCartItems = [...cartItems, { ...product, count: 1 }];
-    }
-
-    setCartItems(newCartItems);
-  };
-
-  const handleRemoveFromCart = (product) => {
-    const existingItemFromCart = cartItems.find(
-      (item) => item.name === product.name
-    );
-    let newCartItems = [];
-
-    if (existingItemFromCart.count === 1) {
-      newCartItems = cartItems.filter((item) => item.name !== product.name);
-    } else {
-      newCartItems = cartItems.map((item) => {
-        if (item.name === product.name) item.count -= 1;
-
-        return item;
-      });
-    }
-
-    setCartItems(newCartItems);
-  };
-
-  const handleClearCart = () => {
-    setCartItems([]);
-  };
+  const {
+    cartItems,
+    handleClearCart,
+    handleAddToCartClick,
+    handleRemoveFromCart,
+  } = useCart();
 
   return (
     <div>

@@ -1,8 +1,8 @@
-import Dexie from 'dexie';
+import Dexie from "dexie";
 
-const db = new Dexie('nextShop');
+const db = new Dexie("nextShop");
 db.version(1).stores({
-    cartItems: `name, age`
+  cartItems: `name, price, description, image, count`,
 });
 
 export default db;
