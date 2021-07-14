@@ -3,6 +3,8 @@ import { ListProductComponent } from "../components/product/list";
 import { products } from "../data/products";
 import { CartProductComponent } from "../components/product/cart";
 import { useCart } from "../hooks/cart";
+import Link from "next/link";
+import { useFavoriteCart } from "../hooks/favorites";
 
 export default function Home() {
   const {
@@ -11,6 +13,10 @@ export default function Home() {
     handleAddToCartClick,
     handleRemoveFromCart,
   } = useCart();
+
+  const {
+    handleAddFavoriteCart
+  } = useFavoriteCart();
 
   return (
     <div>
@@ -25,6 +31,7 @@ export default function Home() {
         <ListProductComponent
           products={products}
           handleAddToCartClick={handleAddToCartClick}
+          handleAddFavoriteCart={handleAddFavoriteCart}
         />
 
         {cartItems.length > 0 && (
@@ -37,6 +44,12 @@ export default function Home() {
           </div>
         )}
       </div>
+      <Link  href="/order">
+          <a>Your order</a>
+      </Link>
+      <Link  href="/favorites">
+          <a>go to Favorites</a>
+      </Link>
     </div>
   );
 }

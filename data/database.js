@@ -5,4 +5,8 @@ db.version(1).stores({
   cartItems: `name, price, description, image, count`,
 });
 
+db.version(2).stores({
+  favoriteItems: `name, price, description, image, count`,
+});
+
 export default db;

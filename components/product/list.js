@@ -1,6 +1,6 @@
 import { SingleProductComponent } from "./single";
 
-export const ListProductComponent = ({ products = [], handleAddToCartClick }) => {
+export const ListProductComponent = ({ products = [], handleAddToCartClick, handleAddFavoriteCart}) => {
   return (
     <div className="flex">
       {products.map((product) => (
@@ -8,6 +8,9 @@ export const ListProductComponent = ({ products = [], handleAddToCartClick }) =>
           key={product.name}
           product={product}
           onAddToCartClick={handleAddToCartClick}
+          onAddToFavorite={handleAddFavoriteCart}
+
+          
         />
       ))}
     </div>
