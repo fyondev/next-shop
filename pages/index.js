@@ -45,10 +45,10 @@ export default function Home() {
         )}
       </div>
       <Link  href="/order">
-          <a>Your order</a>
+          <a className="px-3 py-2 bg-indigo-200 text-gray-800">Your order</a>
       </Link>
       <Link  href="/favorites">
-          <a>go to Favorites</a>
+          <a className="px-3 py-2 mx-3 bg-indigo-200 text-gray-800">go to Favorites</a>
       </Link>
     </div>
   );

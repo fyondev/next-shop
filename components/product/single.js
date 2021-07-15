@@ -45,7 +45,7 @@ export const SingleProductComponent = ({
      
         {showFavorite && !!onAddToFavorite && (
             
-            <button className="px-3 py-2 bg-indigo-200 text-gray-800"
+            <button className="px-3 py-2 mx-3 bg-indigo-200 text-gray-800"
                     onClick={(e) => {
                       e.preventDefault();
                       onAddToFavorite(product);
