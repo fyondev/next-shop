@@ -37,9 +37,8 @@ export const useCart = () => {
     }
 
     setCartItems(newCartItems);
-  };
-
-  const handleRemoveFromCart = (product) => {
+  };  
+    const handleRemoveFromCart = (product) => {
     const existingItemFromCart = cartItems.find(
       (item) => item.name === product.name
     );
