@@ -1,10 +1,16 @@
 import { SingleProductComponent } from "./single";
+import { Checkout } from "./Checkout";
+import { useState } from "react";
 
 export const CartProductComponent = ({
+  
   products = [],
   handleClearCart,
   handleRemoveFromCart,
-}) => {
+}) => { const [isCheckout, setIsCheckout] = useState(false);
+const handleCheckout = () => {
+  setIsCheckout(true);
+}
   let cartTotal = 0;
   products.forEach((product) => {
     cartTotal += product.count * product.price;
@@ -17,7 +23,12 @@ export const CartProductComponent = ({
         <button className="bg-red-400 p-2" onClick={handleClearCart}>
           Empty cart
         </button>
-      </div>
+        <button className="bg-green-400 p-2" onClick={handleCheckout}>
+          Checkout
+        </button>
+
+      </div> 
+      {isCheckout && <Checkout/>}
       <div className="flex">
         {products.map((product) => (
           <SingleProductComponent
