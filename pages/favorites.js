@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React from 'react'
-import { CartProductComponent } from '../components/product/cart';
+import { FavoriteProductComponent } from '../components/product/favorite';
+
 import { useFavoriteCart } from '../hooks/favorites';
 
 function Favorites() {
@@ -15,7 +16,7 @@ function Favorites() {
 
     return (
         <div>
-            <CartProductComponent
+            <FavoriteProductComponent
               products={favoriteItems}
               handleClearCart={handleClearCart}
               handleRemoveFromCart={handleRemoveFromFavorite}
