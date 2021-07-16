@@ -1,40 +1,67 @@
 import Head from "next/head";
 import db from "../data/database";
-import { products } from "../data/products";
+import { products as Products } from "../data/products";
 import { ListProductComponent } from "../components/product/list";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-let clearPage = () => {
-  let form = document.getElementById("submitForm");
-  form.reset();
-};
+
 export default function Admin() {
-  const [productName, setName] = useState("");
-  const [productPrice, setPrice] = useState("");
-  const [productDescription, setDescription] = useState("");
+  console.log(Products)
+  let [product, setProduct] = useState({
+    name: "",
+    price: "",
+    description: "",
+    image: "",
+    flag: "",
+  });
+  const handleChange = (e) => {
+    setProduct({
+      ...product,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const submitNewProduct = (e) => {
     e.preventDefault();
-    let priceNumber = parseFloat(productPrice);
+    let priceNumber = parseFloat(product.price);
     let admin = "Admin";
-    let productImage = `https://source.unsplash.com/300x300?${productName}`;
+    let productImage = `https://source.unsplash.com/300x300?${product.name}`;
     if (
-      productName !== "" &&
-      productPrice !== "" &&
-      productDescription !== ""
+      product.name !== "" &&
+      product.price !== "" &&
+      product.description !== ""
     ) {
       let newProduct = {
-        name: productName,
+        name: product.name,
+        description: product.description,
         price: priceNumber,
-        description: productDescription,
         image: productImage.toString(),
         flag: admin,
       };
-      products.push(newProduct);
-      console.log(products);
+      db.table("products").add({
+        name: product.name,
+        description: product.description,
+        price: priceNumber,
+        image: productImage.toString(),
+        flag: admin,
+      });
+      Products.push(newProduct);
     }
     clearPage();
   };
+  const clearPage = () => {
+    setProduct({
+      name: "",
+      price: "",
+       description: "",
+       image: "",
+       flag: "",
+    })
+   };
+
+  useEffect(() => {
+
+  }, []);
 
   return (
     <div>
@@ -61,7 +88,7 @@ export default function Admin() {
                 type="text"
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 name="name"
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => handleChange(e)}
               />
             </div>
             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -72,10 +99,10 @@ export default function Admin() {
                 Price
               </label>
               <input
-                type="text"
+                type="number"
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 name="price"
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={(e) => handleChange(e)}
               />
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -91,7 +118,7 @@ export default function Admin() {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   rowSpan="10"
                   name="description"
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={(e) => handleChange(e)}
                 />
               </div>
             </div>
@@ -109,7 +136,7 @@ export default function Admin() {
       </div>
       <div className="container mx-auto">
         <h1 className="font-bold text-xl p-3">Next Shop Products</h1>
-        <ListProductComponent products={products} />
+        <ListProductComponent products={Products} />
       </div>
     </div>
   );
